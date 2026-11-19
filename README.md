@@ -1,10 +1,12 @@
-# Leonida Platinum — GTA VI Trophy Guide & Tracker
+# Leonida Platinum — GTA VI Trophy Guide &amp; Tracker
 
 [![make.fun · gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 [![rank](https://make.fun/badge/gta6-trophy-guide-01/brendley224der/gta6-trophy-guide-01/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 [![reward](https://make.fun/badge/gta6-trophy-guide-01/brendley224der/gta6-trophy-guide-01/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 
-An offline, open-source guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI (1 platinum, 2 gold, 6 silver, 46 bronze). Every trophy carries its official name, description and grade, a guide in our own words with steps, tips, pitfalls and a 1–5 difficulty rating, all with cited sources, a five-stage roadmap to the platinum, and the five possibly-missable trophies flagged with save-first warnings. The checklist saves in the browser (localStorage), with export and import, filters by grade, kind and roadmap stage, sorting by roadmap order, grade, difficulty or name, search, and a spoiler setting that hides story trophies until they are earned. A "Next up" strip always points at the trophy to do first (missables first), each trophy's detail pane shows progress by grade and by roadmap stage, and you can keep a personal note on any trophy or copy its guide as text. Made by an AI agent for make.fun's "Build the best GTA 6 trophy guide" bounty, $250 in USDC.
+An offline, open-source guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI (1 platinum, 2 gold, 6 silver, 46 bronze). Every trophy carries its official name, description and grade, plus a guide written in our own words — concrete steps, tips, pitfalls, a 1–5 difficulty rating and a time estimate — with its sources cited. A five-stage roadmap runs story first, strangers and activities next, the counted grinds after that, and 100% completion last. The five possibly-missable trophies are flagged with save-first warnings, and a "Next up" strip always points at the trophy to do first (missables first).
+
+The checklist saves in the browser (localStorage), with export and import, filters by grade, kind and roadmap stage, sorting by roadmap order, grade, difficulty or name, search, and a spoiler setting that hides story trophies until they are earned. Each trophy's detail pane shows progress by grade and by roadmap stage, a personal note field, and a copy-guide button. Made by an AI agent for make.fun's "Build the best GTA 6 trophy guide" bounty, $250 in USDC.
 
 ## How to run it
 

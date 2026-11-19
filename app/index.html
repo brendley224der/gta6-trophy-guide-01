@@ -1,118 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leonida Platinum — GTA VI Trophy Guide &amp; Tracker</title>
-<meta name="description" content="The complete offline guide to all 55 official GTA VI trophies: step-by-step guides, a five-stage roadmap to the platinum, missable warnings, and a checklist that saves your progress.">
+<meta name="description" content="An offline guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI: a guide for each trophy, a five-stage roadmap to the platinum, missable warnings, and a checklist that saves in your browser.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header class="masthead">
-  <div class="masthead-text">
-    <p class="eyebrow">Grand Theft Auto VI &middot; PlayStation 5 &middot; works offline</p>
+  <div class="masthead-inner">
+    <p class="eyebrow">Grand Theft Auto VI &middot; PlayStation 5 &middot; 55 trophies</p>
     <h1>Leonida Platinum</h1>
-    <p class="lede">The complete guide to all 55 official trophies — every name, description and grade, a step-by-step guide for each one with tips and pitfalls, a five-stage roadmap to the platinum, and a checklist that remembers your progress in this browser.</p>
-    <ul class="grade-strip" aria-label="Trophy grades">
-      <li><span class="pip pip-platinum"></span>1 Platinum</li>
-      <li><span class="pip pip-gold"></span>2 Gold</li>
-      <li><span class="pip pip-silver"></span>6 Silver</li>
-      <li><span class="pip pip-bronze"></span>46 Bronze</li>
-      <li><span class="pip pip-miss"></span>5 Missable</li>
-    </ul>
-  </div>
-  <div class="progress-box" id="progressBox">
-    <div class="progress-number"><span id="earnedCount">0</span><span class="progress-total"> / 55</span></div>
-    <div class="progress-track"><div id="barFill"></div></div>
-    <p id="progressText">0% of the way to the platinum</p>
-    <ul id="gradeBreakdown" class="mini-bars" aria-label="Progress by trophy grade"></ul>
-    <p class="progress-note">Progress is stored in this browser only (localStorage). Export a backup before clearing site data.</p>
+    <p class="tagline">The complete trophy guide and tracker — every trophy with its own guide, a five-stage roadmap to the platinum, and the five possibly-missable trophies flagged before you can lose them.</p>
+    <div class="progress-wrap" aria-label="Overall progress">
+      <div class="progress-track"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+      <p class="progress-text" id="progressText">Loading the trophy list…</p>
+    </div>
+    <p class="next-up" id="nextUp" hidden></p>
   </div>
 </header>
 
-<section class="next-up" id="nextUp" aria-label="Next trophy to earn"></section>
-
-<nav class="view-tabs" role="tablist" aria-label="Guide views">
-  <button type="button" data-view="checklist" class="active" role="tab">Checklist</button>
-  <button type="button" data-view="roadmap" role="tab">Roadmap to Platinum</button>
-  <button type="button" data-view="missables" role="tab">Missables <span id="missCount"></span></button>
+<nav class="tabs" aria-label="Views">
+  <button type="button" class="tab active" data-view="checklist">Checklist</button>
+  <button type="button" class="tab" data-view="roadmap">Roadmap</button>
+  <button type="button" class="tab" data-view="missables">Missables <span class="tab-count" id="missableCount"></span></button>
 </nav>
 
-<section class="filter-bar">
-  <label class="filter-search">Search <input id="q" type="search" placeholder="Trophy, mission or keyword… (press / to focus)"></label>
-  <label>Grade
-    <select id="grade">
-      <option value="all">All grades</option>
-      <option value="platinum">Platinum</option>
-      <option value="gold">Gold</option>
-      <option value="silver">Silver</option>
-      <option value="bronze">Bronze</option>
-    </select>
-  </label>
-  <label>Kind
-    <select id="kind">
-      <option value="all">All kinds</option>
-      <option value="story">Story</option>
-      <option value="activities">Activities</option>
-      <option value="collectibles">Collectibles</option>
-      <option value="platinum">Platinum</option>
-    </select>
-  </label>
-  <label>Roadmap stage
-    <select id="stage">
-      <option value="all">All stages</option>
-      <option value="1">1 · Story playthrough</option>
-      <option value="2">2 · Finale &amp; partners</option>
-      <option value="3">3 · Side content</option>
-      <option value="4">4 · Grind &amp; cleanup</option>
-      <option value="5">5 · Platinum</option>
-    </select>
-  </label>
-  <label>Sort
-    <select id="sort">
-      <option value="roadmap">Roadmap order</option>
-      <option value="grade">Grade (platinum first)</option>
-      <option value="difficulty">Hardest first</option>
-      <option value="easiest">Easiest first</option>
-      <option value="name">Name A–Z</option>
-    </select>
-  </label>
-  <label class="filter-check"><input id="missableOnly" type="checkbox"> Missable only</label>
-  <label class="filter-check"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
-  <span class="filter-spacer"></span>
-  <button id="export" type="button">Export progress</button>
-  <label class="filter-import">Import progress <input id="import" type="file" accept="application/json"></label>
-  <button id="reset" type="button">Reset</button>
-</section>
-
-<main class="content">
-  <section id="view-checklist" class="pane">
-    <p id="countLine" class="count-line"></p>
-    <ul id="rows" class="trophy-list"></ul>
+<main>
+  <section id="view-checklist" class="view active" aria-label="Trophy checklist">
+    <div class="toolbar">
+      <label class="search-box">
+        <span class="visually-hidden">Search trophies</span>
+        <input type="search" id="search" placeholder="Search name, guide or description…  ( / )" autocomplete="off">
+      </label>
+      <label>Grade
+        <select id="gradeFilter">
+          <option value="">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <label>Kind
+        <select id="kindFilter">
+          <option value="">All kinds</option>
+          <option value="story">Story</option>
+          <option value="activities">Activities</option>
+          <option value="collectibles">Collectibles</option>
+          <option value="combat">Combat</option>
+          <option value="exploration">Exploration</option>
+          <option value="money">Money</option>
+          <option value="misc">Misc</option>
+          <option value="platinum">Platinum</option>
+        </select>
+      </label>
+      <label>Roadmap stage
+        <select id="stageFilter">
+          <option value="">All stages</option>
+          <option value="1">Stage 1 — Story, part one</option>
+          <option value="2">Stage 2 — Story, part two</option>
+          <option value="3">Stage 3 — Activities &amp; collectibles</option>
+          <option value="4">Stage 4 — Grinds &amp; money</option>
+          <option value="5">Stage 5 — 100% &amp; platinum</option>
+        </select>
+      </label>
+      <label>Sort
+        <select id="sortFilter">
+          <option value="roadmap">Roadmap order</option>
+          <option value="grade">Grade</option>
+          <option value="difficulty">Difficulty</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" id="missableOnly"> Missable only</label>
+      <label class="check"><input type="checkbox" id="unearnedOnly"> Unearned only</label>
+      <label class="check"><input type="checkbox" id="spoilerToggle"> Hide story spoilers</label>
+    </div>
+    <div class="toolbar actions">
+      <button type="button" id="exportBtn">Export progress</button>
+      <button type="button" id="importBtn">Import progress</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+      <button type="button" id="resetBtn">Reset checklist</button>
+      <span class="status" id="status" role="status"></span>
+    </div>
+    <div class="layout">
+      <ul class="trophy-list" id="trophyList"></ul>
+      <aside class="detail" id="detail" aria-label="Trophy guide">
+        <div id="detailBody">
+          <h2>Pick a trophy</h2>
+          <p>Select any trophy in the list to read its full guide — concrete steps, tips, pitfalls, difficulty and time — with its sources.</p>
+          <p>Tick trophies off as you earn them; your progress saves in this browser automatically.</p>
+        </div>
+      </aside>
+    </div>
   </section>
 
-  <section id="view-roadmap" class="pane" hidden>
-    <h2>Roadmap to the platinum</h2>
-    <p>Play in this order. The story comes first, because most trophies unlock just by playing it; side content next, while the map is still fresh; the grind last, once you own the gear and know Leonida. Nothing in stage 1 can be missed — the five trophies that need care are flagged on the Missables tab.</p>
-    <ul id="stageBars" class="mini-bars stage-bars" aria-label="Progress by roadmap stage"></ul>
-    <div id="roadmap"></div>
+  <section id="view-roadmap" class="view" aria-label="Roadmap to the platinum">
+    <h2>The road to the platinum</h2>
+    <p class="lede">Five stages, in order. Story first, strangers and activities next, the counted grinds after that, 100% completion last. The platinum pops with the last trophy you earn — usually the 100% gold.</p>
+    <div id="roadmapBody"></div>
   </section>
 
-  <section id="view-missables" class="pane" hidden>
-    <h2>Missable trophies — read this before you play</h2>
-    <p>Only five trophies need care. GTA VI launched 19 November 2026, so these flags are our own judgement from the official descriptions, not confirmed in-game yet: each one is tied to a moment that may not come back. <strong>Keep a manual save before partner missions, airport runs, jewelry jobs and big story choices.</strong> Everything else can be cleaned up after the story.</p>
-    <div id="missables"></div>
+  <section id="view-missables" class="view" aria-label="Possibly missable trophies">
+    <h2>Possibly missable — read this first</h2>
+    <p class="lede">Five trophies may depend on a one-time window or a story choice, and the community had not confirmed them when GTA VI launched on 19 November 2026. Each one is flagged as <strong>possibly missable (unverified)</strong> — the safe play is a manual save before the moment, not a second playthrough.</p>
+    <div class="missable-rules">
+      <h3>The save rule</h3>
+      <ol>
+        <li>Keep one rotating manual save slot, separate from autosaves, for the whole run.</li>
+        <li>Save before every partner mission, every mission that offers a choice, and before the finale.</li>
+        <li>If a flagged trophy does not pop, reload the save and take the other path — do not push on and hope.</li>
+      </ol>
+    </div>
+    <ul class="trophy-list" id="missableList"></ul>
   </section>
-
-  <aside id="detail" class="guide-pane" aria-live="polite">
-    <p class="guide-empty">Select a trophy to read its full guide, steps, tips and sources — or use “Next up” above for the one to do first.</p>
-  </aside>
 </main>
 
 <footer>
-  <p>Sources: the official trophy list on Exophase (names, descriptions, grades) and PSNProfiles (grades, progress targets). Guides are our own words drawn from those descriptions — steps not yet checked in the game are marked as such, because GTA VI launched 19 November 2026. Difficulty ratings are our own judgement (1 easy, 5 hardest grind). No Rockstar logo or artwork is used. Built for make.fun's “Build the best GTA 6 trophy guide” bounty.</p>
-  <p>How to run: serve this folder with any static server and open index.html. No network requests are made at run time. Press “/” to jump to search.</p>
+  <p>Names, descriptions and grades are the official list as published by Exophase and PSNProfiles. Guides are our own words; steps not yet verified in the game are marked as such. GTA VI launched 19 November 2026. No Rockstar logo or official artwork is used. Progress saves only in this browser (localStorage) — export it to keep a copy.</p>
+  <p><a href="data/trophies.json">trophies.json</a> — the 55 official trophies with guides, in one file.</p>
 </footer>
+
 <script type="module" src="app.js"></script>
 </body>
 </html>
