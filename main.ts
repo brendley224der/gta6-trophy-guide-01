@@ -9,6 +9,11 @@
 // vendor/makefun-frontend.ts: the scorer rebuilds the dossier with its own copy
 // of that library and expects the two to match byte for byte.
 //
+// Rebuilt 2026-11-19: every trophy guide in app/data/trophies.json was rewritten
+// in full (concrete steps, tips, pitfalls and a 1-5 difficulty rating per trophy),
+// and app.js gained sorting, per-grade and per-stage progress bars, a next-up
+// suggestion, per-trophy notes and a copy-guide button.
+//
 // Run it locally with MAKEFUN_OUTPUT_DIR standing in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 // Serve the guide itself with `node serve.ts`, then open http://localhost:8080.

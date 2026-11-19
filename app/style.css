@@ -14,6 +14,9 @@
   --muted: #5d6577;
   --line: #e2ddd2;
   --radius: 14px;
+  --warn: #8f2b23;
+  --warn-bg: #fdeceb;
+  --good: #15803d;
 }
 * { box-sizing: border-box; }
 body {
@@ -25,7 +28,7 @@ h1, h2, h3 { font-family: Georgia, "Iowan Old Style", Palatino, serif; }
 /* Header */
 .masthead {
   display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;
-  padding: 18px 28px 10px; background: var(--navy); color: #f2efe8;
+  padding: 18px 28px 16px; background: var(--navy); color: #f2efe8;
 }
 .masthead-text { max-width: 680px; }
 .eyebrow {
@@ -50,17 +53,50 @@ h1, h2, h3 { font-family: Georgia, "Iowan Old Style", Palatino, serif; }
 .pip-miss { background: var(--sunset); border-radius: 3px; }
 .progress-box {
   background: var(--navy-soft); border: 1px solid #323d5c; border-radius: var(--radius);
-  padding: 12px 18px; min-width: 230px; color: #f2efe8;
+  padding: 12px 18px; min-width: 280px; max-width: 340px; color: #f2efe8;
 }
 .progress-number { font-size: 32px; line-height: 1; font-weight: 700; font-family: Georgia, serif; }
 .progress-total { font-size: 20px; color: #9aa3b8; }
 .progress-track { height: 10px; background: #0e1322; border-radius: 6px; margin: 12px 0 8px; overflow: hidden; }
-#barFill { height: 100%; width: 0%; background: var(--sunset); border-radius: 6px; }
+#barFill { height: 100%; width: 0%; background: var(--sunset); border-radius: 6px; transition: width .3s ease; }
 #progressText { margin: 0; font-weight: 600; }
 .progress-note { font-size: 12px; color: #9aa3b8; margin: 6px 0 0; }
 
+/* Small progress bars: by grade in the header, by stage on the roadmap tab. */
+.mini-bars { margin: 12px 0 0; padding: 0; list-style: none; }
+.mini-bars li {
+  display: flex; align-items: center; gap: 8px;
+  margin: 4px 0; font-size: 12px; color: #d8dce6;
+}
+.mini-bars li > span:first-child { flex: 0 0 148px; }
+.mini-track { flex: 1; height: 7px; background: #0e1322; border-radius: 4px; overflow: hidden; }
+.mini-fill { display: block; height: 100%; background: var(--sunset); }
+.mini-fill.grade-platinum { background: var(--platinum); }
+.mini-fill.grade-gold { background: var(--gold); }
+.mini-fill.grade-silver { background: #d1d5db; }
+.mini-fill.grade-bronze { background: var(--bronze); }
+.mini-count { flex: none; font-variant-numeric: tabular-nums; }
+.stage-bars { margin: 0 0 18px; }
+.stage-bars li { color: var(--muted); }
+.stage-bars .mini-track { background: #e8e2d6; }
+.stage-bars .mini-fill { background: var(--sunset); }
+
+/* Next-up suggestion strip */
+.next-up {
+  margin: 16px 28px 0; padding: 14px 18px;
+  background: var(--card); border: 1px solid var(--line);
+  border-left: 5px solid var(--sunset); border-radius: var(--radius);
+}
+.next-up-label {
+  margin: 0; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--warn);
+}
+.next-up-name { margin: 4px 0; font-size: 18px; font-weight: 700; font-family: Georgia, serif; }
+.next-up-why { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+.next-up-done { margin: 0; font-weight: 700; color: var(--good); }
+
 /* Tabs + filters */
-.view-tabs { display: flex; gap: 8px; padding: 10px 28px 0; }
+.view-tabs { display: flex; gap: 8px; padding: 14px 28px 0; }
 .view-tabs button {
   border: 1px solid var(--line); background: var(--card); border-radius: 999px;
   padding: 8px 16px; cursor: pointer; font-size: 15px; color: var(--ink);
@@ -98,12 +134,14 @@ h1, h2, h3 { font-family: Georgia, "Iowan Old Style", Palatino, serif; }
 }
 .trophy-row:hover { border-color: var(--sunset); }
 .trophy-row.is-earned { opacity: .72; }
+.trophy-row.is-earned h3 { text-decoration: line-through; }
 .trophy-row input[type="checkbox"] { width: 20px; height: 20px; margin-top: 4px; accent-color: var(--sunset); cursor: pointer; }
-.trophy-row h3 { margin: 0 0 4px; font-size: 18px; }
+.trophy-row h3 { margin: 0 0 4px; font-size: 18px; display: flex; align-items: center; gap: 8px; }
 .trophy-desc { margin: 0; color: var(--muted); font-size: 14px; }
 .chip-row { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; }
 .chip { border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; }
-.chip-warn { background: #fdeceb; border-color: #e8b4ae; color: #8f2b23; font-weight: 600; }
+.chip-warn { background: var(--warn-bg); border-color: #e8b4ae; color: var(--warn); font-weight: 600; }
+.chip-note { background: #dcfce7; border-color: #86efac; color: var(--good); font-weight: 600; }
 .grade-platinum .pip { background: var(--platinum); }
 .grade-gold .pip { background: var(--gold); }
 .grade-silver .pip { background: var(--silver); }
@@ -112,6 +150,7 @@ h1, h2, h3 { font-family: Georgia, "Iowan Old Style", Palatino, serif; }
   font-size: 13px; border: 1px solid var(--line); background: var(--sunset-soft);
   border-radius: 8px; padding: 6px 10px; cursor: pointer; white-space: nowrap;
 }
+.read-guide-btn:hover { border-color: var(--sunset); }
 
 /* Guide pane */
 .guide-pane {
@@ -124,15 +163,21 @@ h1, h2, h3 { font-family: Georgia, "Iowan Old Style", Palatino, serif; }
   margin: 16px 0 6px; font-size: 13px; text-transform: uppercase;
   letter-spacing: .08em; color: var(--muted);
 }
-.guide-pane ol { margin: 0; padding-left: 20px; font-size: 14px; }
-.guide-pane ol li { margin-bottom: 5px; }
+.guide-pane ol, .guide-pane ul { margin: 0; padding-left: 20px; font-size: 14px; }
+.guide-pane ol li, .guide-pane ul li { margin-bottom: 5px; }
 .guide-text { font-size: 15px; }
 .source-list { margin: 0; padding-left: 18px; font-size: 13px; color: var(--muted); }
 .source-list li { margin-bottom: 4px; }
+.pitfall-list li { color: var(--warn); }
 .missable-note {
-  background: #fdeceb; border: 1px solid #e8b4ae; border-radius: 10px;
+  background: var(--warn-bg); border: 1px solid #e8b4ae; border-radius: 10px;
   padding: 10px 12px; font-size: 14px;
 }
+.note-box {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--line);
+  border-radius: 8px; font: inherit; font-size: 14px; resize: vertical;
+}
+.detail-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
 
 /* Roadmap + missables */
 .roadmap-stage {
@@ -141,8 +186,15 @@ h1, h2, h3 { font-family: Georgia, "Iowan Old Style", Palatino, serif; }
 }
 .roadmap-stage h3 { margin: 0 0 6px; font-size: 20px; }
 .roadmap-stage p { font-size: 14px; color: var(--muted); margin: 0 0 10px; }
+.roadmap-stage .progress-track { background: #e8e2d6; margin: 0 0 10px; }
+.roadmap-fill { height: 100%; background: var(--sunset); border-radius: 6px; }
 .roadmap-stage ul { margin: 0; padding-left: 20px; font-size: 14px; }
 .roadmap-stage li { margin-bottom: 4px; }
+.roadmap-link {
+  padding: 0; border: none; background: none; font: inherit;
+  color: var(--navy); text-align: left; cursor: pointer;
+}
+.roadmap-link:hover { color: var(--sunset); text-decoration: underline; }
 .missable-card {
   background: var(--card); border: 1px solid #e8b4ae; border-radius: var(--radius);
   padding: 16px 18px; margin-bottom: 14px;
@@ -156,4 +208,8 @@ footer { padding: 8px 28px 28px; color: var(--muted); font-size: 13px; max-width
   .guide-pane { position: static; }
   .masthead h1 { font-size: 34px; }
   .masthead, .view-tabs, .filter-bar, .content, footer { padding-left: 16px; padding-right: 16px; }
+  .next-up { margin-left: 16px; margin-right: 16px; }
+  .mini-bars li > span:first-child { flex-basis: 110px; }
+  .trophy-row { grid-template-columns: auto 1fr; }
+  .trophy-row .read-guide-btn { grid-column: 2; justify-self: start; }
 }
