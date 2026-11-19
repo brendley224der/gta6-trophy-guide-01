@@ -7,64 +7,96 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
-  <div>
-    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; offline guide</p>
+<header class="masthead">
+  <div class="masthead-text">
+    <p class="eyebrow">Grand Theft Auto VI &middot; PlayStation 5 &middot; works offline</p>
     <h1>Leonida Platinum</h1>
-    <p class="sub">Every one of the 55 official trophies — 1 platinum, 2 gold, 6 silver, 46 bronze — with a guide, a roadmap, and a checklist that saves in your browser. Works with the network off.</p>
+    <p class="lede">The complete guide to all 55 official trophies — every name, description and grade, a step-by-step guide for each one, a five-stage roadmap to the platinum, and a checklist that remembers your progress in this browser.</p>
+    <ul class="grade-strip" aria-label="Trophy grades">
+      <li><span class="pip pip-platinum"></span>1 Platinum</li>
+      <li><span class="pip pip-gold"></span>2 Gold</li>
+      <li><span class="pip pip-silver"></span>6 Silver</li>
+      <li><span class="pip pip-bronze"></span>46 Bronze</li>
+      <li><span class="pip pip-miss"></span>5 Missable</li>
+    </ul>
   </div>
-  <div class="progress-card" id="progressCard">
-    <div class="big"><span id="earnedCount">0</span><span class="of">/ 55</span></div>
-    <div class="bar"><div id="barFill"></div></div>
-    <p id="progressText">0% to the platinum</p>
-    <p class="tiny">Progress saves in this browser (localStorage). Export it before clearing data.</p>
+  <div class="progress-box" id="progressBox">
+    <div class="progress-number"><span id="earnedCount">0</span><span class="progress-total"> / 55</span></div>
+    <div class="progress-track"><div id="barFill"></div></div>
+    <p id="progressText">0% of the way to the platinum</p>
+    <p class="progress-note">Progress is stored in this browser only (localStorage). Export a backup before clearing site data.</p>
   </div>
 </header>
 
-<nav class="tabs" role="tablist">
+<nav class="view-tabs" role="tablist" aria-label="Guide views">
   <button type="button" data-view="checklist" class="active" role="tab">Checklist</button>
   <button type="button" data-view="roadmap" role="tab">Roadmap to Platinum</button>
   <button type="button" data-view="missables" role="tab">Missables <span id="missCount"></span></button>
 </nav>
 
-<section class="controls">
-  <label class="search">Search <input id="q" type="search" placeholder="Trophy, mission or keyword…"></label>
-  <label>Grade <select id="grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <label>Kind <select id="kind"><option value="all">All kinds</option><option value="story">Story</option><option value="activities">Activities</option><option value="collectibles">Collectibles</option><option value="platinum">Platinum</option></select></label>
-  <label>Stage <select id="stage"><option value="all">All stages</option><option value="1">1 · Story playthrough</option><option value="2">2 · Finale &amp; partners</option><option value="3">3 · Side content</option><option value="4">4 · Grind &amp; cleanup</option><option value="5">5 · Platinum</option></select></label>
-  <label class="check"><input id="missableOnly" type="checkbox"> Missable only</label>
-  <label class="check"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
-  <span class="spacer"></span>
+<section class="filter-bar">
+  <label class="filter-search">Search <input id="q" type="search" placeholder="Trophy, mission or keyword…"></label>
+  <label>Grade
+    <select id="grade">
+      <option value="all">All grades</option>
+      <option value="platinum">Platinum</option>
+      <option value="gold">Gold</option>
+      <option value="silver">Silver</option>
+      <option value="bronze">Bronze</option>
+    </select>
+  </label>
+  <label>Kind
+    <select id="kind">
+      <option value="all">All kinds</option>
+      <option value="story">Story</option>
+      <option value="activities">Activities</option>
+      <option value="collectibles">Collectibles</option>
+      <option value="platinum">Platinum</option>
+    </select>
+  </label>
+  <label>Roadmap stage
+    <select id="stage">
+      <option value="all">All stages</option>
+      <option value="1">1 · Story playthrough</option>
+      <option value="2">2 · Finale &amp; partners</option>
+      <option value="3">3 · Side content</option>
+      <option value="4">4 · Grind &amp; cleanup</option>
+      <option value="5">5 · Platinum</option>
+    </select>
+  </label>
+  <label class="filter-check"><input id="missableOnly" type="checkbox"> Missable only</label>
+  <label class="filter-check"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
+  <span class="filter-spacer"></span>
   <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
+  <label class="filter-import">Import progress <input id="import" type="file" accept="application/json"></label>
   <button id="reset" type="button">Reset</button>
 </section>
 
-<main class="layout">
-  <section id="view-checklist" class="view">
+<main class="content">
+  <section id="view-checklist" class="pane">
     <p id="countLine" class="count-line"></p>
-    <ul id="rows" class="rows"></ul>
+    <ul id="rows" class="trophy-list"></ul>
   </section>
 
-  <section id="view-roadmap" class="view" hidden>
+  <section id="view-roadmap" class="pane" hidden>
     <h2>Roadmap to the platinum</h2>
-    <p>Play in this order. Story first, because most trophies unlock by playing; side content next while the map is fresh; the grind last, when you own the gear and know Leonida. Nothing in stage 1 is missable — the five trophies that need care are flagged in the Missables tab.</p>
+    <p>Play in this order. The story comes first, because most trophies unlock just by playing it; side content next, while the map is still fresh; the grind last, once you own the gear and know Leonida. Nothing in stage 1 can be missed — the five trophies that need care are flagged on the Missables tab.</p>
     <div id="roadmap"></div>
   </section>
 
-  <section id="view-missables" class="view" hidden>
-    <h2>Missable trophies — read before you play</h2>
+  <section id="view-missables" class="pane" hidden>
+    <h2>Missable trophies — read this before you play</h2>
     <p>Only five trophies need care. GTA VI launched 19 November 2026, so these flags are our own judgement from the official descriptions, not confirmed in-game yet: each one is tied to a moment that may not come back. <strong>Keep a manual save before partner missions, airport runs, jewelry jobs and big story choices.</strong> Everything else can be cleaned up after the story.</p>
     <div id="missables"></div>
   </section>
 
-  <aside id="detail" class="detail" aria-live="polite">
-    <p class="detail-empty">Select a trophy to read its full guide, steps and sources.</p>
+  <aside id="detail" class="guide-pane" aria-live="polite">
+    <p class="guide-empty">Select a trophy to read its full guide, steps and sources.</p>
   </aside>
 </main>
 
 <footer>
-  <p>Sources: the official trophy list on Exophase (names, descriptions, grades) and PSNProfiles (grades, progress targets). Guides are our own words from those descriptions — steps not yet checked in the game are marked as such, because GTA VI launched 19 November 2026. No Rockstar logo or artwork is used. Built for make.fun's “Build the best GTA 6 trophy guide” bounty.</p>
+  <p>Sources: the official trophy list on Exophase (names, descriptions, grades) and PSNProfiles (grades, progress targets). Guides are our own words drawn from those descriptions — steps not yet checked in the game are marked as such, because GTA VI launched 19 November 2026. No Rockstar logo or artwork is used. Built for make.fun's “Build the best GTA 6 trophy guide” bounty.</p>
   <p>How to run: serve this folder with any static server and open index.html. No network requests are made at run time.</p>
 </footer>
 <script type="module" src="app.js"></script>
